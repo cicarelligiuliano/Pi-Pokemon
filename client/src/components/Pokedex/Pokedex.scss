@@ -1,0 +1,304 @@
+$width: 50vw;
+$height: 80vh;
+$bgColor: #aab7b8;
+@font-face {
+    font-family: pokemonHollow;
+    src: url(./font/PokemonHollow.ttf);
+}
+* {
+    box-sizing: border-box;
+}
+.Pokecontainer {
+    .container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: $bgColor;
+        height: 100vh;
+        width: 100vw;
+
+        .pokedex {
+            height: $height;
+            width: $width;
+            position: absolute;
+            display: flex;
+
+            .leftSide {
+                height: 100%;
+                width: 50%;
+                background-image: url("./helpers/Pokedex.png");
+                background-origin: content-box;
+                background-repeat: no-repeat;
+                background-size: $width $height;
+                position: absolute;
+                .bigLed {
+                    width: 17.5%;
+                    height: 11%;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 5.4%;
+                    top: 3.5%;
+                    margin: 0 auto;
+                    background-color: rgb(4, 0, 255);
+                    opacity: 0;
+                    animation: 0.3s ledBlue 2 0.5s;
+                    // animation: 0.3s ledBlue 1 2s;
+                }
+                .redLed {
+                    width: 3.5%;
+                    height: 2.5%;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 29%;
+                    top: 3.8%;
+                    margin: 0 auto;
+                    background-color: red;
+                    opacity: 0;
+                    animation: 0.3s ledRed 1 3.3s;
+                }
+                .yellowLed {
+                    width: 3.5%;
+                    height: 2.5%;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 37.15%;
+                    top: 3.8%;
+                    margin: 0 auto;
+                    background-color: yellow;
+                    opacity: 0;
+                    animation: 0.3s ledYellow 1 3.6s;
+                }
+                .greenLed {
+                    width: 3.5%;
+                    height: 2.5%;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 45.3%;
+                    top: 3.8%;
+                    margin: 0 auto;
+                    background-color: rgb(24, 236, 24);
+                    opacity: 0;
+                    animation: 0.3s ledGreen 1 3.9s;
+                }
+                .screen {
+                    width: 55.5%;
+                    height: 20%;
+                    position: absolute;
+                    border-radius: 4%;
+                    left: 24%;
+                    top: 30.6%;
+                    margin: 0 auto;
+                    background-color: rgb(230, 228, 228);
+                    background-image: url("./helpers/pikachu-running.gif");
+                    background-size: 100% 100%;
+                    opacity: 0;
+                    animation: 5s screen 1 4.2s;
+                    animation-fill-mode: forwards;
+                }
+            }
+
+            .mitad {
+                height: 100%;
+                width: 100%;
+                right: 0;
+                position: absolute;
+                transform-style: preserve-3d;
+                transform: perspective(1000px) rotateY(-185deg);
+                backface-visibility: none;
+                animation: 2s cubic-bezier(0.645, 0.045, 0.355, 1) rotar 1 1.5s;
+                animation-fill-mode: forwards;
+                .rightSide {
+                    height: 100%;
+                    width: 50%;
+                    right: 0;
+                    transform-style: preserve-3d;
+                    position: absolute;
+
+                    .front {
+                        height: 100%;
+                        width: 100%;
+                        right: 0;
+                        background-image: url("./helpers/Pokedex.png");
+                        background-origin: content-box;
+                        background-repeat: no-repeat;
+                        background-size: $width $height;
+                        background-position-x: right;
+                        position: absolute;
+
+                        .ledAmarillo {
+                            width: 11.5%;
+                            height: 7.2%;
+                            border-radius: 50%;
+                            position: absolute;
+                            left: 72%;
+                            top: 69.4%;
+                            margin: 0 auto;
+                            background-color: yellow;
+                            opacity: 0;
+                            animation: 0.5s ledAmarillo infinite 6.2s;
+                        }
+
+                        .enterButton {
+                            width: 30%;
+                            height: 6.8%;
+                            border-radius: 1%;
+                            position: absolute;
+                            left: 18.2%;
+                            top: 85%;
+                            margin: 0 auto;
+
+                            box-shadow: rgba(0, 0, 0, 0.4) 2px 2px 2px 2px;
+                            animation: 1s enterButton infinite 7s;
+                            a {
+                                height: 100%;
+                                width: 100%;
+                                position: absolute;
+                                left: 0%;
+                            }
+                        }
+                    }
+                    .right {
+                        height: 76.2%;
+                        width: 10%;
+                        left: 94.5%;
+                        background-image: url("./helpers/Lado-derecho.png");
+                        background-origin: content-box;
+                        background-repeat: no-repeat;
+                        backface-visibility: none;
+                        background-size: 100% 100%;
+                        background-position-x: left;
+                        position: absolute;
+                        bottom: 3%;
+                        transform: rotateY(90deg) translateX($width * 0.0225);
+                    }
+                    .back {
+                        height: 79%;
+                        width: 100%;
+
+                        right: 0;
+                        background-image: url("./helpers/Trasero.png");
+                        background-origin: content-box;
+                        background-repeat: no-repeat;
+                        background-size: 100% 100%;
+                        background-position-x: left;
+                        position: absolute;
+                        bottom: 0;
+                        transform: rotatey(180deg) translateZ($width * 0.0225);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes rotar {
+    0% {
+        transform: perspective(1000px) rotateY(-185deg);
+    }
+    100% {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+}
+
+@keyframes ledBlue {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.3;
+        box-shadow: rgb(38, 0, 255) 0 0 3px 3px;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes ledYellow {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.4;
+        box-shadow: rgba(251, 255, 0, 0.842) 0 0 5px 5px;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes ledRed {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.4;
+        box-shadow: rgba(250, 4, 4, 0.842) 0 0 5px 5px;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes ledGreen {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.4;
+        box-shadow: rgba(60, 255, 0, 0.842) 0 0 5px 5px;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes ledAmarillo {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.2;
+        box-shadow: rgba(251, 255, 0, 0.842) 0 0 5px 5px;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes screen {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+        background-image: url("./helpers/errorScreen.gif");
+    }
+    15% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.8;
+    }
+    25% {
+        opacity: 0.4;
+    }
+    30% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        box-shadow: rgb(248, 240, 240) 0 0 3px 3px;
+        background-image: url("./helpers/pikachu-running.gif");
+    }
+}
+
+@keyframes enterButton {
+    0% {
+        box-shadow: rgba(0, 0, 0, 0.4) 2px 2px 2px 2px;
+    }
+    50% {
+        box-shadow: rgba(0, 0, 0, 0.1) 4px 4px 4px 4px;
+    }
+    100% {
+        box-shadow: rgba(0, 0, 0, 0.4) 2px 2px 2px 2px;
+    }
+}
