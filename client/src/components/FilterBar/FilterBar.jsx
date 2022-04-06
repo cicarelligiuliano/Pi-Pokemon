@@ -1,36 +1,62 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { filterAll } from "../../redux/actions";
-import "./FilterBar.css";
+import OptionsSelector from "../helpers/OptionsSelector";
+import Pagination from "../helpers/Pagination";
+import "./FilterBar.scss";
 import * as V from "./variables";
 
-const FilterBar = () => {
+const FilterBar = ({ pokemons }) => {
     const dispatch = useDispatch();
+
     const [filter, setFilter] = useState({
-        which: "all",
+        which: "",
         type: "all",
-        order: "byNameAsc",
+        order: "",
         page: 0,
     });
-    const pokemons = useSelector((state) => state.pokemons);
-    ;
 
     const handlePage = (e) => {
+        let $buttons = document.querySelectorAll(".pageNumbers");
         if (e.target.name === "next") {
-            let max = V.checkMax(pokemons, filter);
-            if (filter.page < max) {
-                setFilter({
-                    ...filter,
-                    page: filter.page + 1,
-                });
+            for (let i = 0; i < $buttons.length; i++) {
+                if (!(Number($buttons[i].name) === filter.page + 2) && $buttons[i].classList.contains("activeButton")) {
+                    $buttons[i].classList.remove("activeButton");
+                } else if (Number($buttons[i].name) === filter.page + 2) {
+                    $buttons[i].classList.add("activeButton");
+                }
             }
+            setFilter({
+                ...filter,
+                page: filter.page + 1,
+            });
         } else if (e.target.name === "previous") {
+            for (let i = 0; i < $buttons.length; i++) {
+                if (!(Number($buttons[i].name) === filter.page) && $buttons[i].classList.contains("activeButton")) {
+                    $buttons[i].classList.remove("activeButton");
+                } else if (Number($buttons[i].name) === filter.page) {
+                    $buttons[i].classList.add("activeButton");
+                }
+            }
+
             if (filter.page !== 0) {
                 setFilter({
                     ...filter,
                     page: filter.page - 1,
                 });
             }
+        } else {
+            for (let i = 0; i < $buttons.length; i++) {
+                if (!($buttons[i].name === e.target.name) && $buttons[i].classList.contains("activeButton")) {
+                    $buttons[i].classList.remove("activeButton");
+                } else if ($buttons[i].name === e.target.name) {
+                    $buttons[i].classList.add("activeButton");
+                }
+            }
+            setFilter({
+                ...filter,
+                page: e.target.value - 1,
+            });
         }
     };
 
@@ -60,57 +86,38 @@ const FilterBar = () => {
         dispatch(filterAll(filter));
     }, [dispatch, filter]);
 
+    if (pokemons.length !== 0) {
+        var maxPage = V.checkMax(pokemons, filter);
+    }
+
     return (
         <nav>
-            <div>
-                <h2>Ordenamiento</h2>
-                <select name="order" id="order" value={filter.order} onChange={handleOrder}>
-                    <option value="byNameAsc">Por orden alfabetico</option>
-                    <option value="byNameDesc">Por orden alfabetico opuesto</option>
-                    <option value="byStrDesc">Por ataque descendente</option>
-                    <option value="byStrAsc">Por ataque ascendente</option>
-                </select>
-                <br />
-                <select type="url" id="categoria1" name="categoria1" placeholder="Url imagen..." value={filter.type} onChange={handleType}>
-                    <option value="all">none</option>
-                    <option value="1">Normal</option>
-                    <option value="2">Figthing</option>
-                    <option value="3">Flying</option>
-                    <option value="4">Poison</option>
-                    <option value="5">Ground</option>
-                    <option value="6">Rock</option>
-                    <option value="7">Bug</option>
-                    <option value="8">Ghost</option>
-                    <option value="9">Steel</option>
-                    <option value="10">Fire</option>
-                    <option value="11">Water</option>
-                    <option value="12">Grass</option>
-                    <option value="13">Electric</option>
-                    <option value="14">Psychic</option>
-                    <option value="15">Ice</option>
-                    <option value="16">Dragon</option>
-                    <option value="17">Dark</option>
-                    <option value="18">Fairy</option>
-                    <option value="19">Unknown</option>
-                    <option value="20">Shadow</option>
-                </select>
-                <br />
-                <form action="">
-                    <label htmlFor="all">All</label>
-                    <input type="radio" name="which" id="all" value="all" onChange={handleWhich} defaultChecked />
+            <div className="FilterBarContainer">
+                <div className="filter">
+                    <label htmlFor="Filter" className="label">
+                        Filter
+                    </label>
                     <br />
-                    <label htmlFor="all">Originals</label>
-                    <input type="radio" name="which" id="original" value="original" onChange={handleWhich} />
+                    <select name="order" id="order" value={filter.order} onChange={handleOrder}>
+                        <option value="">Name or Attack</option>
+                        <option value="byNameAsc">By name ↑</option>
+                        <option value="byNameDesc">By name ↓</option>
+                        <option value="byStrDesc">By attack ↑</option>
+                        <option value="byStrAsc">By attack ↓</option>
+                    </select>
                     <br />
-                    <label htmlFor="all">Created</label>
-                    <input type="radio" name="which" id="created" value="created" onChange={handleWhich} />
-                </form>
-                <button name="previous" onClick={handlePage}>
-                    Previous
-                </button>
-                <button name="next" onClick={handlePage}>
-                    Next
-                </button>
+                    <OptionsSelector name="categoria1" labelName="" value={filter.type} onChange={handleType} />
+                    <select name="which" id="which" value={filter.which} onChange={handleWhich}>
+                        <option value="">Origin</option>
+                        <option value="all">All</option>
+                        <option value="original">Original</option>
+                        <option value="created">Created</option>
+                    </select>
+                </div>
+
+                <div className="pageControl">
+                    <Pagination max={maxPage} onClick={handlePage} actual={filter.page} />
+                </div>
             </div>
         </nav>
     );

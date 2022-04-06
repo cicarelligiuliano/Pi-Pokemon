@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createPokemon } from "../../redux/actions";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ClearPokemon, createPokemon } from "../../redux/actions";
 import * as C from "../helpers/const.js";
 import * as V from "./variables.js";
 import OptionsSelector from "../helpers/OptionsSelector.jsx";
 import InputCreator from "../helpers/InputCreator.jsx";
+import "./CreatePokemonForm.scss";
+import PokeFormCard from "./helpers/PokeFormCard";
 
 function CreatePokemonForm() {
     const dispatch = useDispatch();
     const [input, setInput] = useState(V.inputFormState);
     const [error, setError] = useState(V.errorFormState);
+    const pokemon = useSelector((state) => state.pokemon);
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -17,8 +20,42 @@ function CreatePokemonForm() {
         setError((prevState) => {
             return { ...prevState, ...obj };
         });
+        if (obj.state) {
+            if (obj.nombre) {
+                let $inputNombre = document.getElementById("Formnombre");
+                if (!$inputNombre.classList.contains("ErrorForm")) {
+                    $inputNombre.classList.add("ErrorForm");
+                }
+            }
 
-        if (obj.state === false) dispatch(createPokemon(input));
+            if (obj.categorias) {
+                let $categoria1 = document.getElementById("categoria1");
+                let $categoria2 = document.getElementById("categoria2");
+                if (!$categoria1.classList.contains("ErrorSelector")) {
+                    $categoria1.classList.add("ErrorSelector");
+                }
+                if (!$categoria2.classList.contains("ErrorSelector")) {
+                    $categoria2.classList.add("ErrorSelector");
+                }
+            }
+
+            if (obj.img) {
+                let $img = document.getElementById("Formimg");
+                if (!$img.classList.contains("ErrorForm")) {
+                    $img.classList.add("ErrorForm");
+                }
+            }
+        }
+
+        if (obj.state === false) {
+            dispatch(ClearPokemon());
+            dispatch(createPokemon(input));
+            handleReset();
+        }
+    };
+
+    const handleReset = (e) => {
+        setInput(V.inputFormState);
     };
 
     const handleChange = (e) => {
@@ -31,31 +68,50 @@ function CreatePokemonForm() {
             } else {
                 setError({
                     ...error,
-                    [e.target.name]: "",
+                    [e.target.name]: false,
                 });
             }
         }
         if (e.target.name === "nombre") {
+            let $inputNombre = document.getElementById("Formnombre");
             if (C.onlyLetters(e.target.value)) {
+                if ($inputNombre.classList.contains("ErrorForm")) {
+                    $inputNombre.classList.remove("ErrorForm");
+                }
                 setInput({
                     ...input,
                     [e.target.name]: e.target.value,
                 });
-                setError({
-                    ...error,
-                    nombre: "",
-                });
             } else {
-                setError({
-                    ...error,
-                    nombre: "Solo se permiten letras",
-                });
+                if (!$inputNombre.classList.contains("ErrorForm")) {
+                    $inputNombre.classList.add("ErrorForm");
+                }
             }
         } else {
             setInput({
                 ...input,
                 [e.target.name]: e.target.value,
             });
+        }
+        if (e.target.name === "categoria1" || e.target.name === "categoria2") {
+            let $categoria1 = document.getElementById("categoria1");
+            let $categoria2 = document.getElementById("categoria2");
+
+            if (e.target.value === input.categoria1 || e.target.value === input.categoria2) {
+                if (!$categoria1.classList.contains("ErrorSelector")) {
+                    $categoria1.classList.add("ErrorSelector");
+                }
+                if (!$categoria2.classList.contains("ErrorSelector")) {
+                    $categoria2.classList.add("ErrorSelector");
+                }
+            } else {
+                if ($categoria1.classList.contains("ErrorSelector")) {
+                    $categoria1.classList.remove("ErrorSelector");
+                }
+                if ($categoria2.classList.contains("ErrorSelector")) {
+                    $categoria2.classList.remove("ErrorSelector");
+                }
+            }
         }
 
         if (e.target.name === "categoria1") {
@@ -71,22 +127,46 @@ function CreatePokemonForm() {
                 categorias: [input.categoria1, e.target.value],
             });
         }
+
+        if (e.target.name === "img") {
+            let $img = document.getElementById("Formimg");
+            if ($img.classList.contains("ErrorForm")) {
+                $img.classList.remove("ErrorForm");
+            }
+        }
     };
 
+    useEffect(() => {
+        dispatch(ClearPokemon());
+
+        return () => {
+            dispatch(ClearPokemon());
+        };
+    }, [dispatch]);
+
     return (
-        <form action="" onSubmit={onSubmit}>
-            <InputCreator props={V.inputs.nombre} value={input.nombre} onChange={handleChange} error={error.nombre} />
-            <InputCreator props={V.inputs.vida} value={input.vida} onChange={handleChange} error={error.vida} />
-            <InputCreator props={V.inputs.fuerza} value={input.fuerza} onChange={handleChange} error={error.fuerza} />
-            <InputCreator props={V.inputs.defensa} value={input.defensa} onChange={handleChange} error={error.defensa} />
-            <InputCreator props={V.inputs.velocidad} value={input.velocidad} onChange={handleChange} error={error.velocidad} />
-            <InputCreator props={V.inputs.altura} value={input.altura} onChange={handleChange} error={error.altura} />
-            <InputCreator props={V.inputs.peso} value={input.peso} onChange={handleChange} error={error.peso} />
-            <OptionsSelector name="categoria1" labelName="Tipo 1" value={input.categoria1} onChange={handleChange} error={error.categorias} />
-            <OptionsSelector name="categoria2" labelName="Tipo 2" value={input.categoria2} onChange={handleChange} error={error.categorias} />
-            <InputCreator props={V.inputs.img} value={input.img} onChange={handleChange} error={error.img} />
-            <button type="submit">Crear</button>
-        </form>
+        <div className="CreateFormContainer" id="banana">
+            <div className="PokeFormCardContainer">{pokemon.nombre ? <PokeFormCard props={pokemon} /> : null}</div>
+            <div className="FormBackground"></div>
+            <form action="" onSubmit={onSubmit} className="CreateForm">
+                <InputCreator props={V.inputs.nombre} value={input.nombre} onChange={handleChange} />
+                <InputCreator props={V.inputs.vida} value={input.vida} onChange={handleChange} />
+                <InputCreator props={V.inputs.fuerza} value={input.fuerza} onChange={handleChange} />
+                <InputCreator props={V.inputs.defensa} value={input.defensa} onChange={handleChange} />
+                <InputCreator props={V.inputs.velocidad} value={input.velocidad} onChange={handleChange} />
+                <InputCreator props={V.inputs.altura} value={input.altura} onChange={handleChange} />
+                <InputCreator props={V.inputs.peso} value={input.peso} onChange={handleChange} />
+                <OptionsSelector name="categoria1" labelName="Tipo 1" value={input.categoria1} onChange={handleChange} />
+                <OptionsSelector name="categoria2" labelName="Tipo 2" value={input.categoria2} onChange={handleChange} />
+                <InputCreator props={V.inputs.img} value={input.img} onChange={handleChange} />
+                <div className="formButtons">
+                    <button type="submit">Crear</button>
+                    <button type="reset" onClick={handleReset}>
+                        Reset
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 }
 

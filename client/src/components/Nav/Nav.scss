@@ -1,0 +1,64 @@
+@font-face {
+    font-family: pokemonSolid;
+    src: url(../helpers/font/PokemonSolid.ttf);
+}
+
+.navbar {
+    height: 10vh;
+    width: 100vw;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(200, 200, 200);
+    background: linear-gradient(90deg, rgba(200, 200, 200, 0.56) 0%, rgba(75, 216, 231, 0.44861694677871145) 26%, rgba(0, 82, 200, 1) 90%);
+    .navcontainer {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 0.5px 0px 0.5px;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .logo {
+            height: 90%;
+            width: 15%;
+            background-image: url(./helpers/Pokelogo.png);
+            background-position: center;
+            background-size: 100% 100%;
+        }
+        .home {
+            font-family: pokemonSolid;
+            text-decoration: none;
+            font-size: 30px;
+            color: black;
+            transition: all 0.5s;
+        }
+
+        .create {
+            font-family: pokemonSolid;
+            text-decoration: none;
+            font-size: 30px;
+            color: black;
+            transition: all 0.5s;
+        }
+
+        .about {
+            padding-right: 20px;
+            font-family: pokemonSolid;
+            text-decoration: none;
+            font-size: 30px;
+            color: black;
+            transition: all 0.5s;
+        }
+
+        .home:hover,
+        .about:hover,
+        .create:hover {
+            text-shadow: 0.5px 0.5px 0.5px black;
+            font-size: 35px;
+        }
+    }
+}

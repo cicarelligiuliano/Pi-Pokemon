@@ -1,0 +1,185 @@
+@font-face {
+    font-family: pokemonSolid;
+    src: url(../helpers/font/PokemonSolid.ttf);
+}
+
+.HomeContainer {
+    position: relative;
+    width: 100vw;
+    height: 90vh;
+    background-image: url("./helpers/forest.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    .deck {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .SearchBar {
+        width: 12%;
+        height: 20%;
+        position: relative;
+        top: 2%;
+        left: 1%;
+        z-index: 10;
+        .SearchBar__label {
+            font-family: pokemonSolid;
+            font-size: 20px;
+        }
+        input {
+            padding: 0px;
+            padding-left: 5px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            background-color: #ddd;
+            font-family: pokemonSolid;
+            line-height: 0.2;
+        }
+
+        .NoEntry {
+            border: 3px red solid;
+            animation: 0.2s error 0s;
+        }
+        .SearchBar__buttons {
+            width: 100%;
+            height: 25%;
+            display: flex;
+            align-items: center;
+
+            .SearchBar__buttons-button {
+                width: 30%;
+                height: 25%;
+                border-radius: 20%;
+                border: none;
+                font-family: pokemonSolid;
+            }
+            .searchButton {
+                position: absolute;
+                left: 5%;
+                cursor: pointer;
+            }
+
+            .allButton {
+                position: absolute;
+                right: 5%;
+                cursor: pointer;
+            }
+
+            .searchButton:hover,
+            .allButton:hover {
+                box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px 1px;
+            }
+            .searchButton:active,
+            .allButton:active {
+                box-shadow: rgba(0, 0, 0, 0.4) -1px -1px 1px 1px;
+            }
+        }
+    }
+
+    .Deck {
+        position: absolute;
+        left: 14%;
+        top: 10%;
+        z-index: 10;
+        height: 80vh;
+        width: 86vw;
+
+        .LoadingPage {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // border: 1px solid red;
+            background-image: url("../helpers/img/loading3.gif");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        .ErrorContainer {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            animation: 1s pokeAparition 1;
+
+            .errorPokedex {
+                height: 90%;
+                width: 60%;
+                background-image: url("../helpers/img/Pokedex.png");
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+
+                .errorScreen {
+                    height: 20%;
+                    width: 25%;
+                    position: relative;
+                    left: 16.5%;
+                    top: 30.55%;
+                    border-radius: 5%;
+                    background-image: url("../helpers/img/errorScreen.gif");
+                }
+                .errorMsgContainer {
+                    height: 19%;
+                    width: 26.6%;
+                    position: relative;
+                    left: 59.2%;
+                    top: 6%;
+                    border-radius: 5%;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .errorMsg {
+                        font-family: pokemonSolid;
+                        font-size: 1.5em;
+                        color: white;
+                        animation: 1s errorMsg infinite;
+                    }
+                }
+            }
+        }
+    }
+}
+@keyframes pokeAparition {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes errorMsg {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes error {
+    0% {
+        transform: translateX(1px) translateY(1px);
+    }
+    25% {
+        transform: translateX(-1px) translateY(-1px);
+    }
+    50% {
+        transform: translateX(-1px) translateY(1px);
+    }
+    100% {
+        transform: translateX(1px) translateY(-1px);
+    }
+}

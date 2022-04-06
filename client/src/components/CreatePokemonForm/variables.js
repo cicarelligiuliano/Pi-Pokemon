@@ -2,14 +2,16 @@
 // import { useDispatch } from "react-redux";
 // import React from "react";
 
+const BaseUrl = process.env.REACT_APP_BASE_URL;
+
 export const inputFormState = {
     nombre: "",
-    vida: "",
-    fuerza: "",
-    defensa: "",
-    velocidad: "",
-    altura: "",
-    peso: "",
+    vida: "100",
+    fuerza: "50",
+    defensa: "50",
+    velocidad: "50",
+    altura: "100",
+    peso: "100",
     img: "",
     categoria1: "",
     categoria2: "",
@@ -19,76 +21,48 @@ export const inputFormState = {
 
 export const errorFormState = {
     state: false,
-    nombre: "",
-    vida: "",
-    fuerza: "",
-    defensa: "",
-    velocidad: "",
-    altura: "",
-    peso: "",
-    img: "",
-    categorias: "",
+    nombre: false,
+    img: false,
+    categorias: false,
 };
 
 export const checkFunction = async (input) => {
     let obj = {
         state: false,
-        nombre: "",
-        vida: "",
-        fuerza: "",
-        defensa: "",
-        velocidad: "",
-        altura: "",
-        peso: "",
-        img: "",
-        categorias: "",
+        nombre: false,
+        img: false,
+        categorias: false,
     };
     if (!input.nombre) {
-        obj.nombre = "Por favor ingrese un nombre";
+        obj.nombre = true;
         obj.state = true;
     }
     if (input.nombre) {
         let { msg } = await checkNameInDb(input.nombre);
         if (msg) {
-            obj.nombre = "Ingrese otro nombre";
+            obj.nombre = true;
             obj.state = true;
         }
     }
-    if (!input.vida) {
-        obj.vida = "Por favor ingrese un valor";
-        obj.state = true;
-    }
-    if (!input.fuerza) {
-        obj.fuerza = "Por favor ingrese un valor";
-        obj.state = true;
-    }
-    if (!input.defensa) {
-        obj.defensa = "Por favor ingrese un valor";
-        obj.state = true;
-    }
-    if (!input.velocidad) {
-        obj.velocidad = "Por favor ingrese un valor";
-        obj.state = true;
-    }
-    if (!input.altura) {
-        obj.altura = "Por favor ingrese un valor";
-        obj.state = true;
-    }
-    if (!input.peso) {
-        obj.peso = "Por favor ingrese un valor";
-        obj.state = true;
-    }
     if (!input.categoria1 && !input.categoria2) {
-        obj.categorias = "Por favor ingrese un valor";
+        obj.categorias = true;
+        obj.state = true;
+    }
+    if (input.categoria1 === input.categoria2) {
+        obj.categorias = true;
         obj.state = true;
     }
     if (!input.img) {
-        obj.img = "Por favor ingrese un valor";
+        obj.img = true;
         obj.state = true;
     }
     if (input.img) {
         if (!/^https?:\/\/[\w]+(\.[\w]+)+[/#?]?.*$/.test(input.img)) {
-            obj.img = "Por favor ingrese un pagina valida";
+            obj.img = true;
+            obj.state = true;
+        }
+        if (!/(.img)|(.svg)|(.png)|(.jpg)|(.gif)/.test(input.img)) {
+            obj.img = true;
             obj.state = true;
         }
     }
@@ -103,7 +77,7 @@ export const checkCategorias = (name) => {
 };
 
 export const checkNameInDb = async (name) => {
-    let res = await fetch(`http://localhost:3001/pokemon/check?name=${name}`)
+    let res = await fetch(`${BaseUrl}/pokemon/check?name=${name}`)
         .then((res) => res.json())
         .then((json) => json);
     return res;
@@ -135,7 +109,7 @@ export const inputs = {
         name: "defensa",
         min: "0",
         max: "100",
-        labelName: "Vida",
+        labelName: "Defensa",
     },
     velocidad: {
         type: "range",
@@ -145,16 +119,20 @@ export const inputs = {
         labelName: "Velocidad",
     },
     altura: {
-        type: "number",
+        type: "range",
         name: "altura",
+        min: "0",
+        max: "200",
         labelName: "Altura",
-        placeHolder: "Altura en centimetros...",
+        unit: "cm",
     },
     peso: {
-        type: "number",
+        type: "range",
         name: "peso",
+        min: "0",
+        max: "200",
         labelName: "Peso",
-        placeHolder: "Peso en kg...",
+        unit: "Kg",
     },
     img: {
         type: "url",

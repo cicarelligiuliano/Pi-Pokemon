@@ -1,0 +1,381 @@
+.CreateFormContainer {
+    position: relative;
+    width: 100vw;
+    height: 90vh;
+    background-image: url("./helpers/forest.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    .FormBackground {
+        background-color: #999;
+        border-radius: 10%;
+        height: 80%;
+        width: 30%;
+        position: absolute;
+        opacity: 0.3;
+        box-shadow: rgba(0, 0, 0, 1) 2px 2px;
+    }
+
+    .PokeFormCardContainer {
+        position: absolute;
+        height: 80%;
+        width: 30%;
+        left: 65%;
+        border-radius: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+
+        .PokeFormCard {
+            height: 80%;
+            width: 70%;
+            border-radius: 10%;
+            transform-style: preserve-3d;
+            backface-visibility: none;
+            // transform: perspective(5000px) rotateY(180deg);
+            animation: 5s rotateCard 1;
+            animation-fill-mode: forwards;
+
+            .linkCard {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 100;
+                left: 0%;
+                right: 0%;
+            }
+
+            
+            .backCard {
+                backface-visibility: none;
+                transform-style: preserve-3d;
+                height: 100%;
+                width: 100%;
+                border-radius: 5%;
+                background-image: url("./helpers/backcard.png");
+                background-repeat: no-repeat;
+                background-size: 101% 100%;
+                background-position-x: -1px;
+                position: absolute;
+                transform: rotatey(180deg) translateZ(1px);
+                box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+            }
+
+
+            .frontCard {
+                height: 100%;
+                width: 100%;
+                border-radius: 5%;
+                position: absolute;
+                backface-visibility: none;
+                transform-style: preserve-3d;
+                box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+                .effect {
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    margin: auto;
+                    border-radius: 5%;
+                    background-image: url("./helpers/sparkles.gif"),
+                        linear-gradient(125deg, #ff008450 15%, #fca40040 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
+                    background-position: 50% 50%;
+                    background-size: 200%;
+                    background-blend-mode: overlay;
+                    z-index: 2;
+                    mix-blend-mode: color-dodge;
+                    opacity: 0.8;
+                }
+
+                .hp {
+                    height: 5%;
+                    width: 20%;
+                    position: relative;
+                    top: 2%;
+                    left: 75%;
+
+                    background-color: #ffffff;
+                    border-radius: 1em;
+                    justify-content: center;
+                    display: flex;
+                    align-items: center;
+                    p {
+                        margin: 0px 0 0 0;
+                        font-size: 16px;
+                        font-weight: 600;
+                    }
+
+                    span {
+                        font-size: 11px;
+                        letter-spacing: 0.4px;
+                        font-weight: 700;
+                        padding-top: 5px;
+
+                        text-align: end;
+                    }
+                }
+
+                .nombre {
+                    height: 8%;
+                    width: 100%;
+                    top: -3%;
+                    position: relative;
+                    font-family: pokemonSolid;
+                    color: white;
+                    font-size: 2em;
+                    text-align: center;
+                    margin-top: 0%;
+                    letter-spacing: 2.5px;
+                }
+                .imagen {
+                    height: 50%;
+                    width: 100%;
+                    top: 2%;
+                    position: relative;
+
+                    img {
+                        height: 90%;
+                        width: 90%;
+                        margin: 20px auto;
+                        position: relative;
+                    }
+                }
+                .types {
+                    height: 6%;
+                    width: 100%;
+                    top: 2%;
+                    position: relative;
+
+                    display: flex;
+                    justify-content: space-around;
+                    margin: 5px 0 5px 0;
+                    z-index: 0;
+                    span {
+                        width: 25%;
+                        font-size: 14px;
+                        letter-spacing: 0.4px;
+                        font-weight: 700;
+                        padding: 6px 10px 6px 10px;
+                        border-radius: 20px;
+                        color: white;
+                        text-align: center;
+                        z-index: 0;
+                        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+                    }
+                }
+                .stats {
+                    height: 27%;
+                    width: 100%;
+                    top: 2%;
+                    position: relative;
+
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    text-align: center;
+
+                    .top,
+                    .bottom {
+                        width: 100%;
+                        height: 40%;
+
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-evenly;
+                        .stat {
+                            width: 15%;
+                            height: 100%;
+                            background-color: #fff;
+                            border-radius: 10%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+                        }
+
+                        span {
+                            font-size: 12px;
+                            color: black;
+                            font-weight: 600;
+                            margin: 0px;
+                        }
+
+                        p {
+                            margin: 0px 0 0 0;
+                            font-size: 15px;
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .CreateForm {
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+        width: 30%;
+
+        // border: 1px red solid;
+
+        .Input {
+            // border: 1px solid red;
+            position: relative;
+            height: 10%;
+            display: flex;
+            align-items: center;
+
+            .Input-label {
+                position: absolute;
+                left: 0%;
+                height: 100%;
+                width: 30%;
+                // border: 1px solid blue;
+            }
+            .Input-value {
+                width: 10%;
+                height: 100%;
+                position: absolute;
+                right: 5%;
+                // border: 1px solid blue;
+            }
+
+            .Input-input {
+                width: 50%;
+                position: relative;
+                left: 30%;
+                text-align: center;
+                // border: 1px solid blue;
+            }
+
+            .input-box {
+                padding: 0px;
+                padding-left: 5px;
+                border-radius: 10px;
+                border: 1px solid #ddd;
+                // border: 1px red solid;
+                background-color: #ddd;
+                font-family: pokemonSolid;
+                line-height: 0.2;
+            }
+
+            .ErrorForm {
+                outline: 3px red solid;
+                animation: 0.2s errorForm 1;
+            }
+
+            .input-range {
+                // -webkit-appearance: none;
+                cursor: pointer;
+            }
+        }
+
+        .optionSelector {
+            // border: 1px solid red;
+            position: relative;
+            height: 10%;
+            display: flex;
+            align-items: center;
+
+            .OptionSelector-label {
+                // border: 1px solid blue;
+                position: absolute;
+                width: 30%;
+                height: 100%;
+                left: 0%;
+            }
+        }
+
+        .formButtons {
+            height: 10%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            button {
+                width: 30%;
+                height: 70%;
+                border: none;
+                border-radius: 20px;
+                font-family: pokemonSolid;
+                text-align: center;
+                cursor: pointer;
+                z-index: 1;
+            }
+
+            button:hover {
+                box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px 1px;
+            }
+            button:active {
+                box-shadow: rgba(0, 0, 0, 0.4) -1px -1px 1px 1px;
+            }
+        }
+
+        label {
+            font-family: pokemonSolid;
+            font-size: 20px;
+        }
+
+        select {
+            width: 50%;
+            margin: 0px;
+            font-family: pokemonSolid;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background-color: #ddd;
+            font-size: 14px;
+            text-align: center;
+            position: relative;
+            left: 30%;
+            cursor: pointer;
+            // margin: auto;
+        }
+
+        .ErrorSelector {
+            outline: 3px red solid;
+            animation: 0.2s errorForm 1;
+        }
+    }
+}
+
+@keyframes errorForm {
+    0% {
+        transform: translateX(1px) translateY(1px);
+    }
+    25% {
+        transform: translateX(-1px) translateY(-1px);
+    }
+    50% {
+        transform: translateX(-1px) translateY(1px);
+    }
+    100% {
+        transform: translateX(1px) translateY(-1px);
+    }
+}
+
+@keyframes rotateCard {
+    0% {
+        transform: perspective(5000px) rotateY(180deg);
+    }
+    100% {
+        transform: perspective(5000px) rotateY(0deg);
+    }
+}
+
+@keyframes entryCard {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

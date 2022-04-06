@@ -20,8 +20,9 @@ function PokemonCard(props) {
                 <div className="effect"></div>
 
                 <h2 className="name">{props.nombre[0].toUpperCase() + props.nombre.slice(1, props.nombre.length + 1)}</h2>
-
-                <img className="img" src={`${props.img}`} alt="Pokemon img" />
+                <div className="imagen">
+                    <img className="img" src={`${props.img}`} alt="Pokemon img" />
+                </div>
 
                 <div className="types">
                     {props.types.map((el) => (

@@ -3,7 +3,6 @@ import "./Pokedex.scss";
 import { Link } from "react-router-dom";
 
 function Pokedex() {
-    
 
     return (
         <>
@@ -24,7 +23,7 @@ function Pokedex() {
                                     <div className="ledAmarillo"></div>
 
                                     <div className="enterButton">
-                                        <Link to="/home" className="enter"></Link>
+                                        <Link to="/home" className="enter">Entrar</Link>
                                     </div>
                                 </div>
                                 <div className="back"></div>

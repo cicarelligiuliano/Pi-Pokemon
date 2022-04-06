@@ -1,0 +1,55 @@
+{
+    "pokemons": [
+        {
+            "nombre": "giuliano",
+            "vida": 120,
+            "fuerza": 90,
+            "defensa": 50,
+            "velocidad": 69,
+            "altura": 180,
+            "peso": 110,
+            "types": [
+                { "id": 4, "nombre": "poison" },
+                { "id": 5, "nombre": "ground" }
+            ],
+            "created": true,
+            "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/180.gif",
+            "hide": false,
+            "id": "123as-12312d-1312"
+        },
+        {
+            "nombre": "batman",
+            "vida": 140,
+            "fuerza": 85,
+            "defensa": 75,
+            "velocidad": 8,
+            "altura": 152,
+            "peso": 85,
+            "types": [
+                { "id": 10, "nombre": "fire" },
+                { "id": 11, "nombre": "water" }
+            ],
+            "created": true,
+            "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/180.gif",
+            "hide": false,
+            "id": "333as-12312d-1312"
+        },
+        {
+            "nombre": "robin",
+            "vida": 85,
+            "fuerza": 10,
+            "defensa": 73,
+            "velocidad": 85,
+            "altura": 120,
+            "peso": 62,
+            "types": [
+                { "id": 15, "nombre": "ice" },
+                { "id": 16, "nombre": "dragon" }
+            ],
+            "created": false,
+            "img": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/180.gif",
+            "hide": false,
+            "id": "222as-12312d-1312"
+        }
+    ]
+}

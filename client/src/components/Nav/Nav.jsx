@@ -1,26 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Nav.scss";
 
 const Nav = (props) => {
-  return (
-    <nav>
-      <Link to="/">Home</Link>
-      <br />
-      <Link to="/pokemon/create">Create Pokemon</Link>
-    </nav>
-  );
-};
+    return (
+        <nav className="navbar">
+            <div className="navcontainer">
+                <div className="logo"></div>
+                <Link to="/home" className="home">
+                    Home
+                </Link>
 
-// class Nav extends Component {
-//   render() {
-//     return (
-//       <div>
-//         <Link to="/">Home</Link>
-//         <br />
-//         <Link to="/house/create">Create House</Link>
-//       </div>
-//     );
-//   }
-// }
+                <Link to="/pokemon/create" className="create">
+                    Create Pokemon
+                </Link>
+                
+            </div>
+        </nav>
+    );
+};
 
 export default Nav;

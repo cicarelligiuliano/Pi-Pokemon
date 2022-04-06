@@ -1,0 +1,109 @@
+.DetailsContainer {
+    height: 90vh;
+    width: 100vw;
+    background-image: url("./helpers/forest.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .ControlButtons {
+        height: 10%;
+        width: 60%;
+
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .ButtonContainer {
+            width: 12%;
+            height: 50%;
+            button {
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+                border-radius: 1em;
+                border: none;
+                font-family: pokemonSolid;
+            }
+            button:hover {
+                box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 1px 1px;
+            }
+            button:active {
+                box-shadow: rgba(0, 0, 0, 0.4) -1px -1px 1px 1px;
+            }
+        }
+    }
+
+    .CardDetail {
+        height: 80%;
+        width: 60%;
+        border-radius: 3em;
+        position: relative;
+
+        .LoadingPage {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            // border: 1px solid red;
+            background-image: url("../helpers/img/loading3.gif");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+        }
+
+        .ErrorContainer {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            animation: 1s pokeAparition 1;
+
+            .errorPokedex {
+                height: 90%;
+                width: 60%;
+                background-image: url("../helpers/img/Pokedex.png");
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+
+                .errorScreen {
+                    height: 18%;
+                    width: 28%;
+                    position: relative;
+                    left: 12%;
+                    top: 32.6%;
+                    border-radius: 5%;
+                    background-image: url("../helpers/img/errorScreen.gif");
+                }
+                .errorMsgContainer {
+                    height: 19%;
+                    width: 26.6%;
+                    position: relative;
+                    left: 62%;
+                    top: 8%;
+                    border-radius: 5%;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .errorMsg {
+                        font-family: pokemonSolid;
+                        font-size: 1.1em;
+                        color: white;
+                        animation: 1s errorMsg infinite;
+                    }
+                }
+            }
+        }
+    }
+}

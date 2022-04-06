@@ -1,10 +1,10 @@
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import Nav from "./components/Nav/Nav";
-import SearchBar from "./components/SearchBar/SearchBar";
 import CreatePokemonForm from "./components/CreatePokemonForm/CreatePokemonForm";
 import PokemonDetails from "./components/PokemonDetails/PokemonDetails";
 import Pokedex from "./components/Pokedex/Pokedex";
+import Home from "./components/Home/Home";
 
 function App() {
     return (
@@ -15,7 +15,7 @@ function App() {
                 </Route>
                 <Route exact path="/home">
                     <Nav />
-                    <SearchBar />
+                    <Home />
                 </Route>
                 <Route exact path="/pokemon/create">
                     <Nav />
