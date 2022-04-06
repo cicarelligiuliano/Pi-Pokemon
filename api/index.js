@@ -3,8 +3,8 @@ const { conn, Pokemon, Type } = require("./src/db.js");
 const axios = require("axios").default;
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-    server.listen(process.env.PORT, async () => {
+conn.sync({ force: false }).then(() => {
+    server.listen(process.env.PORT || 5000, async () => {
         // console.log("Servidor levantado en puerto 3001"); // eslint-disable-line no-console
         await axios
             .get("https://pokeapi.co/api/v2/type")
