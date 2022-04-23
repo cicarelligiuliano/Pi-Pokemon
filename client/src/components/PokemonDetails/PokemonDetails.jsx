@@ -41,7 +41,7 @@ function PokemonDetails(props) {
                 {!pokemon.nombre && !pokemon.msg ? <LoadingPage /> : null}
             </div>
         </div>
-    );
+    );  
 }
 
 export default PokemonDetails;
