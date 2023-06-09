@@ -1,6 +1,6 @@
-const axios = require("axios").default;
+const axios = require('axios').default;
 const AxiosGetAll = async (arr = []) => {
-    let primerGet = await axios.get("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40");
+    let primerGet = await axios.get('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40');
     let resp = primerGet.data.results.map(async (el) => {
         let segundoGet = await axios.get(el.url);
         let poke = segundoGet.data;
@@ -14,7 +14,7 @@ const AxiosGetAll = async (arr = []) => {
             altura: poke.height * 10,
             peso: poke.weight / 10,
             types: poke.types.map((el) => {
-                let id = Number(el.type.url.split("/")[6]);
+                let id = Number(el.type.url.split('/')[6]);
                 let nombre = el.type.name;
                 return { id, nombre };
             }),
@@ -41,7 +41,7 @@ const AxiosGetOne = async (name) => {
             altura: poke.height * 10,
             peso: poke.weight / 10,
             types: poke.types.map((el) => {
-                let id = Number(el.type.url.split("/")[6]);
+                let id = Number(el.type.url.split('/')[6]);
                 let nombre = el.type.name;
                 return { id, nombre };
             }),
@@ -51,7 +51,7 @@ const AxiosGetOne = async (name) => {
         };
         return obj;
     } catch (error) {
-        return {error:true};
+        return { error: true };
     }
 };
 
