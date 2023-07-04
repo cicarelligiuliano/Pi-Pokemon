@@ -1,7 +1,7 @@
-const { response, request } = require("express");
-const { Pokemon, Type } = require("../db.js");
-const { AxiosGetAll, AxiosGetOne } = require("../helpers/axiosGet.js");
-const axios = require("axios").default;
+const { response, request } = require('express');
+const { Pokemon, Type } = require('../db.js');
+const { AxiosGetAll, AxiosGetOne } = require('../helpers/axiosGet.js');
+const axios = require('axios').default;
 
 const getPokemons = async (req = request, res = response) => {
     const { name } = req.query;
@@ -11,7 +11,7 @@ const getPokemons = async (req = request, res = response) => {
             include: [
                 {
                     model: Type,
-                    attributes: ["id", "nombre"],
+                    attributes: ['id', 'nombre'],
                     through: {
                         attributes: [],
                     },
@@ -20,7 +20,7 @@ const getPokemons = async (req = request, res = response) => {
         });
         if (!pokemons) {
             await axios
-                .get("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40")
+                .get('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=40')
                 .then((response) => {
                     response.data.results.forEach((el) =>
                         axios.get(el.url).then(async (response) => {
@@ -35,12 +35,12 @@ const getPokemons = async (req = request, res = response) => {
                                 altura: poke.height * 10,
                                 peso: poke.weight / 10,
                                 categorias: poke.types.map((el) => {
-                                    let id = Number(el.type.url.split("/")[6]);
+                                    let id = Number(el.type.url.split('/')[6]);
                                     return id;
                                 }),
                                 img: poke.sprites.other.dream_world.front_default,
                             };
-                            let pokemon = await Pokemon.create(obj);
+                            let pokemon = await Pokemon.FindOrCreate({ where: obj });
                             pokemon.setTypes(obj.categorias);
                         })
                     );
@@ -53,7 +53,7 @@ const getPokemons = async (req = request, res = response) => {
                 include: [
                     {
                         model: Type,
-                        attributes: ["id", "nombre"],
+                        attributes: ['id', 'nombre'],
                         through: {
                             attributes: [],
                         },
@@ -72,7 +72,7 @@ const getPokemons = async (req = request, res = response) => {
             include: [
                 {
                     model: Type,
-                    attributes: ["id", "nombre"],
+                    attributes: ['id', 'nombre'],
                     through: {
                         attributes: [],
                     },
@@ -95,7 +95,7 @@ const getPokemons = async (req = request, res = response) => {
                         altura: poke.height * 10,
                         peso: poke.weight / 10,
                         categorias: poke.types.map((el) => {
-                            let id = Number(el.type.url.split("/")[6]);
+                            let id = Number(el.type.url.split('/')[6]);
                             return id;
                         }),
                         img: poke.sprites.other.dream_world.front_default,
@@ -109,7 +109,7 @@ const getPokemons = async (req = request, res = response) => {
                             include: [
                                 {
                                     model: Type,
-                                    attributes: ["id", "nombre"],
+                                    attributes: ['id', 'nombre'],
                                     through: {
                                         attributes: [],
                                     },
@@ -119,7 +119,7 @@ const getPokemons = async (req = request, res = response) => {
                     );
                 })
                 .catch(function (error) {
-                    return res.status(404).json({ msg: "Pokemon not found" });
+                    return res.status(404).json({ msg: 'Pokemon not found' });
                 });
         } else {
             return res.json(pokemon);
@@ -137,16 +137,16 @@ const getPokemons2 = async (req = request, res = response) => {
             include: [
                 {
                     model: Type,
-                    attributes: ["id", "nombre"],
+                    attributes: ['id', 'nombre'],
                     through: {
                         attributes: [],
                     },
                 },
             ],
         });
-        pokeapi = await AxiosGetAll(pokeapi);
-        pokeresp = pokemons.concat(pokeapi);
-        return res.status(200).json(pokeresp);
+        // pokeapi = await AxiosGetAll(pokeapi);
+        // pokeresp = pokemons.concat(pokeapi);
+        return res.status(200).json(pokemons);
     } else {
         let pokemon = await Pokemon.findOne({
             where: {
@@ -155,7 +155,7 @@ const getPokemons2 = async (req = request, res = response) => {
             include: [
                 {
                     model: Type,
-                    attributes: ["id", "nombre"],
+                    attributes: ['id', 'nombre'],
                     through: {
                         attributes: [],
                     },
@@ -167,7 +167,7 @@ const getPokemons2 = async (req = request, res = response) => {
             if (!pokemon.error) {
                 res.json(pokemon);
             } else {
-                return res.status(404).json({ msg: "Pokemon not found" });
+                return res.status(404).json({ msg: 'Pokemon not found' });
             }
         } else {
             return res.status(200).json(pokemon);
@@ -176,14 +176,14 @@ const getPokemons2 = async (req = request, res = response) => {
 };
 
 const getPokemonById = async (req = request, res = response) => {
-    const { idPokemon = "" } = req.params;
+    const { idPokemon = '' } = req.params;
 
-    if (idPokemon.includes("-")) {
+    if (idPokemon.includes('-')) {
         let pokemon = await Pokemon.findByPk(idPokemon, {
             include: [
                 {
                     model: Type,
-                    attributes: ["id", "nombre"],
+                    attributes: ['id', 'nombre'],
                     through: {
                         attributes: [],
                     },
@@ -193,14 +193,14 @@ const getPokemonById = async (req = request, res = response) => {
         if (pokemon) {
             return res.json(pokemon);
         } else {
-            return res.status(404).json({ msg: "Pokemon not found" });
+            return res.status(404).json({ msg: 'Pokemon not found' });
         }
     } else {
         let pokemon = await AxiosGetOne(idPokemon);
         if (!pokemon.error) {
             res.json(pokemon);
         } else {
-            return res.status(404).json({ msg: "Pokemon not found" });
+            return res.status(404).json({ msg: 'Pokemon not found' });
         }
     }
 };
@@ -208,16 +208,16 @@ const getPokemonById = async (req = request, res = response) => {
 const createPokemon = async (req = request, res = response) => {
     let { nombre, vida, fuerza, defensa, velocidad, altura, peso, categorias, img, created } = req.body;
 
-    if (!nombre) res.status(404).json({ msg: "El nombre es obligatorio" });
+    if (!nombre) res.status(404).json({ msg: 'El nombre es obligatorio' });
 
     let cat1 = categorias[0];
     let cat2 = categorias[1];
 
-    console.log(cat1 !== "", cat2 !== "");
+    console.log(cat1 !== '', cat2 !== '');
 
-    if (cat1 !== "" && cat2 === "") {
+    if (cat1 !== '' && cat2 === '') {
         categorias = [cat1];
-    } else if (cat2 !== "" && cat1 === "") {
+    } else if (cat2 !== '' && cat1 === '') {
         categorias = [cat2];
     }
 
@@ -239,7 +239,7 @@ const createPokemon = async (req = request, res = response) => {
         include: [
             {
                 model: Type,
-                attributes: ["id", "nombre"],
+                attributes: ['id', 'nombre'],
                 through: {
                     attributes: [],
                 },
@@ -254,7 +254,7 @@ const checkNameInDb = async (req = request, res = response) => {
     const { name } = req.query;
 
     if (!name) {
-        res.status(404).json({ msg: "Es necesario un nombre para hacer una consulta" });
+        res.status(404).json({ msg: 'Es necesario un nombre para hacer una consulta' });
     } else {
         const nombre = name.toLowerCase();
         let pokemon = await Pokemon.findOne({ where: { nombre } });
@@ -265,32 +265,32 @@ const checkNameInDb = async (req = request, res = response) => {
 };
 
 const deletePokemon = async (req = request, res = response) => {
-    const { idPokemon = "" } = req.params;
+    const { idPokemon = '' } = req.params;
 
     const pokemon = await Pokemon.findByPk(idPokemon);
     if (pokemon) {
         await pokemon.destroy();
         res.json(pokemon);
     } else {
-        return res.status(404).json({ msg: "Pokemon not found" });
+        return res.status(404).json({ msg: 'Pokemon not found' });
     }
 };
 
 const editPokemon = async (req = request, res = response) => {
     let { nombre, vida, fuerza, defensa, velocidad, altura, peso, categorias, img, created } = req.body;
-    const { idPokemon = "" } = req.params;
+    const { idPokemon = '' } = req.params;
     const pokemon = await Pokemon.findByPk(idPokemon);
 
-    if (!nombre) res.status(404).json({ msg: "El nombre es obligatorio" });
+    if (!nombre) res.status(404).json({ msg: 'El nombre es obligatorio' });
 
     let cat1 = categorias[0];
     let cat2 = categorias[1];
 
-    console.log(cat1 !== "", cat2 !== "");
+    console.log(cat1 !== '', cat2 !== '');
 
-    if (cat1 !== "" && cat2 === "") {
+    if (cat1 !== '' && cat2 === '') {
         categorias = [cat1];
-    } else if (cat2 !== "" && cat1 === "") {
+    } else if (cat2 !== '' && cat1 === '') {
         categorias = [cat2];
     }
 
@@ -312,7 +312,7 @@ const editPokemon = async (req = request, res = response) => {
         include: [
             {
                 model: Type,
-                attributes: ["id", "nombre"],
+                attributes: ['id', 'nombre'],
                 through: {
                     attributes: [],
                 },
